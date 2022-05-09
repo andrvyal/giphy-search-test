@@ -1,0 +1,15 @@
+<div class="row mb-4">
+  <div *ngFor="let gif of gifs" class="col-sm-4 preview-container">
+    <img class="preview" [src]="gif.images.original.url" />
+  </div>
+</div>
+
+<ngb-pagination
+  *ngIf="pagination"
+  class="d-flex justify-content-center"
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="total"
+  [maxSize]="paginationSize"
+  (pageChange)="setPage($event)"
+></ngb-pagination>
