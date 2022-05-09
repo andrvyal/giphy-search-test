@@ -1,5 +1,25 @@
-Giphy Search Test
+<div class="container-xl py-3">
+  <h1 class="text-center mb-4">Giphy Search</h1>
 
-<div *ngFor="let gif of gifs">
-  <img [src]="gif.images.fixed_width.url" />
+  <input
+    class="form-control mx-auto mb-4 search-input"
+    type="text"
+    placeholder="Search GIFs"
+    aria-label="GIF search input"
+  />
+
+  <div class="row mb-4">
+    <div *ngFor="let gif of gifs" class="col-sm-4 preview-container">
+      <img class="preview" [src]="gif.images.original.url" />
+    </div>
+  </div>
+
+  <ngb-pagination
+    class="d-flex justify-content-center"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="total"
+    [maxSize]="paginationSize"
+  >
+  </ngb-pagination>
 </div>

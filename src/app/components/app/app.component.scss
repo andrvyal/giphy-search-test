@@ -1,0 +1,16 @@
+$preview-padding-vertical: 0.375rem;
+
+.search-input {
+  max-width: 34rem;
+}
+
+.preview-container {
+  align-items: center;
+  display: flex;
+  padding-bottom: $preview-padding-vertical;
+  padding-top: $preview-padding-vertical;
+}
+
+.preview {
+  width: 100%;
+}
