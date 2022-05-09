@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { QueryMap } from '../helpers/api';
-import { Gif, SearchResults } from '../helpers/giphy';
+import { GiphyGif, GiphySearchResults } from '../helpers/giphy';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -25,14 +25,14 @@ export class GiphyService {
     return pairs.join('&');
   }
 
-  async search(q: string, page: number = 0): Promise<Array<Gif>> {
+  async search(q: string, page: number = 0): Promise<Array<GiphyGif>> {
     const urlQuery: string = this.buildQuery({
       q,
       limit: environment.pageSize,
       offset: environment.pageSize * page,
     });
 
-    const results: SearchResults<Gif> = await this.apiService.get<SearchResults<Gif>>(
+    const results: GiphySearchResults<GiphyGif> = await this.apiService.get<GiphySearchResults<GiphyGif>>(
       `${environment.apiUrl}${environment.searchApi}?${urlQuery}`,
     );
 
