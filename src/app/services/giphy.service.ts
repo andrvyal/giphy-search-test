@@ -25,15 +25,21 @@ export class GiphyService {
     return pairs.join('&');
   }
 
-  async search(q: string, page: number = 0): Promise<Array<GiphyGif>> {
-    const urlQuery: string = this.buildQuery({
-      q,
+  async search(query: string, page: number = 0): Promise<Array<GiphyGif>> {
+    const params: QueryMap = {
+      q: query,
       limit: environment.pageSize,
       offset: environment.pageSize * page,
-    });
+    };
+
+    if (query) {
+      params['q'] = query;
+    }
+
+    const urlQuery: string = this.buildQuery(params);
 
     const results: GiphySearchResults<GiphyGif> = await this.apiService.get<GiphySearchResults<GiphyGif>>(
-      `${environment.apiUrl}${environment.searchApi}?${urlQuery}`,
+      `${environment.apiUrl}${query ? environment.searchApi : environment.trendingApi}?${urlQuery}`,
     );
 
     return results.data;

@@ -6,4 +6,5 @@ export const baseConfig: BaseConfig = {
   pageSize: 9,
   paginationSize: 4,
   searchApi: 'search',
+  trendingApi: 'trending',
 };

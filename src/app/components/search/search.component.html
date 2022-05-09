@@ -1,0 +1,10 @@
+<input
+  class="form-control mx-auto mb-4 search-input"
+  type="text"
+  placeholder="Search GIFs"
+  aria-label="GIF search input"
+  [(ngModel)]="query"
+  (ngModelChange)="search()"
+/>
+
+<gst-search-results [gifs]="gifs" [pagination]="!!query"></gst-search-results>

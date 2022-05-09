@@ -4,6 +4,7 @@ export interface BaseConfig {
   pageSize: number;
   paginationSize: number;
   searchApi: string;
+  trendingApi: string;
 }
 
 export interface EnvironmentConfig extends BaseConfig {
