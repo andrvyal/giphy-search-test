@@ -107,26 +107,4 @@ describe('SearchComponent', () => {
 
     expect(component.gifs?.length).toEqual(0);
   });
-
-  // it('should handle search results', () => {
-  //   const results: GiphySearchResults<GiphyGif> = {
-  //     data: [],
-  //     pagination: {
-  //       total_count: 11,
-  //       count: 1,
-  //       offset: 0,
-  //     },
-  //     meta: {
-  //       status: 200,
-  //       msg: 'Success',
-  //       response_id: '',
-  //     },
-  //   };
-
-  //   component['handleSearchResults'](results);
-  //   expect(
-  //     component.total === results.pagination.total_count &&
-  //     !component.loading
-  //   ).toBeTruthy();
-  // });
 });
