@@ -13,4 +13,6 @@
   </div>
 </div>
 
-<gst-search-results *ngIf="!loading" [gifs]="gifs" [pagination]="!!query"></gst-search-results>
+<gst-search-results *ngIf="!loading && gifs && gifs.length" [gifs]="gifs" [pagination]="!!query"></gst-search-results>
+
+<div *ngIf="!loading && gifs && !gifs.length" class="text-center">No GIFs found</div>
