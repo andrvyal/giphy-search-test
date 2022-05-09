@@ -7,4 +7,10 @@
   (ngModelChange)="handleInput()"
 />
 
-<gst-search-results [gifs]="gifs" [pagination]="!!query"></gst-search-results>
+<div *ngIf="loading" class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<gst-search-results *ngIf="!loading" [gifs]="gifs" [pagination]="!!query"></gst-search-results>

@@ -12,6 +12,7 @@ import { GiphyService } from '../../services/giphy.service';
 })
 export class SearchComponent implements OnInit {
   gifs: Array<GiphyGif> | undefined;
+  loading: boolean = false;
   query: string = '';
   private inputSubject: Subject<string> = new Subject();
 
@@ -19,8 +20,10 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     // initial search
+    this.loading = true;
     this.giphyService.search(this.query).subscribe((gifs: Array<GiphyGif>) => {
       this.gifs = gifs;
+      this.loading = false;
     });
 
     // handle query input
@@ -33,10 +36,12 @@ export class SearchComponent implements OnInit {
       )
       .subscribe((gifs: Array<GiphyGif>) => {
         this.gifs = gifs;
+        this.loading = false;
       });
   }
 
   handleInput(): void {
+    this.loading = true;
     this.inputSubject.next(this.query);
   }
 }
