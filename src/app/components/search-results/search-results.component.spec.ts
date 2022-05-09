@@ -34,4 +34,10 @@ describe('SearchResultsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set page', () => {
+    const page: number = 2;
+    component.setPage(page);
+    expect(component.page).toEqual(page);
+  });
 });
