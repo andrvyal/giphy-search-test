@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { QueryMap } from '../helpers/api';
 import { GiphyGif, GiphySearchResults } from '../helpers/giphy';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,11 @@ export class GiphyService {
     return pairs.join('&');
   }
 
-  search(query: string, page: number = 0): Observable<Array<GiphyGif>> {
+  search(query: string, page: number = 1): Observable<GiphySearchResults<GiphyGif>> {
     const params: QueryMap = {
       q: query,
       limit: environment.pageSize,
-      offset: environment.pageSize * page,
+      offset: environment.pageSize * (page - 1),
     };
 
     if (query) {
@@ -39,14 +39,8 @@ export class GiphyService {
 
     const urlQuery: string = this.buildQuery(params);
 
-    return this.http
-      .get<GiphySearchResults<GiphyGif>>(
-        `${environment.apiUrl}${query ? environment.searchApi : environment.trendingApi}?${urlQuery}`,
-      )
-      .pipe(
-        map((results: GiphySearchResults<GiphyGif>): Array<GiphyGif> => {
-          return results.data;
-        }),
-      );
+    return this.http.get<GiphySearchResults<GiphyGif>>(
+      `${environment.apiUrl}${query ? environment.searchApi : environment.trendingApi}?${urlQuery}`,
+    );
   }
 }

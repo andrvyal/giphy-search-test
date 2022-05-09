@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
 import { GiphyGif } from '../../helpers/giphy';
@@ -11,13 +11,20 @@ import { GiphyGif } from '../../helpers/giphy';
 export class SearchResultsComponent implements OnInit {
   @Input() gifs: Array<GiphyGif> | undefined;
   @Input() pagination: boolean = true;
+  @Input() total: number = 0;
 
-  page: number = 1;
-  pageSize: number = 9;
+  @Input() page: number = 1;
+  @Output() pageChange: EventEmitter<number> = new EventEmitter();
+
+  pageSize: number = environment.pageSize;
   paginationSize: number = environment.paginationSize;
-  total: number = 80;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  setPage(page: number): void {
+    this.page = page;
+    this.pageChange.emit(this.page);
+  }
 }
