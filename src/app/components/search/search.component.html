@@ -4,7 +4,7 @@
   placeholder="Search GIFs"
   aria-label="GIF search input"
   [(ngModel)]="query"
-  (ngModelChange)="search()"
+  (ngModelChange)="handleInput()"
 />
 
 <gst-search-results [gifs]="gifs" [pagination]="!!query"></gst-search-results>

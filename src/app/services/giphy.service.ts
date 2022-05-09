@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 import { QueryMap } from '../helpers/api';
 import { GiphyGif, GiphySearchResults } from '../helpers/giphy';
-import { ApiService } from './api.service';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GiphyService {
-  constructor(private apiService: ApiService) {}
+  constructor(private http: HttpClient) {}
 
   private buildQuery(params: QueryMap): string {
     const apiParams: QueryMap = {
@@ -25,7 +26,7 @@ export class GiphyService {
     return pairs.join('&');
   }
 
-  async search(query: string, page: number = 0): Promise<Array<GiphyGif>> {
+  search(query: string, page: number = 0): Observable<Array<GiphyGif>> {
     const params: QueryMap = {
       q: query,
       limit: environment.pageSize,
@@ -38,10 +39,14 @@ export class GiphyService {
 
     const urlQuery: string = this.buildQuery(params);
 
-    const results: GiphySearchResults<GiphyGif> = await this.apiService.get<GiphySearchResults<GiphyGif>>(
-      `${environment.apiUrl}${query ? environment.searchApi : environment.trendingApi}?${urlQuery}`,
-    );
-
-    return results.data;
+    return this.http
+      .get<GiphySearchResults<GiphyGif>>(
+        `${environment.apiUrl}${query ? environment.searchApi : environment.trendingApi}?${urlQuery}`,
+      )
+      .pipe(
+        map((results: GiphySearchResults<GiphyGif>): Array<GiphyGif> => {
+          return results.data;
+        }),
+      );
   }
 }
