@@ -28,7 +28,6 @@ export class GiphyService {
 
   search(query: string, page: number = 1): Observable<GiphySearchResults<GiphyGif>> {
     const params: QueryMap = {
-      q: query,
       limit: environment.pageSize,
       offset: environment.pageSize * (page - 1),
     };
