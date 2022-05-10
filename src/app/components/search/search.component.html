@@ -1,0 +1,25 @@
+<input
+  class="form-control mx-auto mb-4 search-input"
+  type="text"
+  placeholder="Search GIFs"
+  aria-label="GIF search input"
+  [(ngModel)]="query"
+  (ngModelChange)="handleInput()"
+/>
+
+<div *ngIf="loading" class="text-center">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<gst-search-results
+  *ngIf="!loading && gifs && gifs.length"
+  [gifs]="gifs"
+  [pagination]="!!query"
+  [(page)]="page"
+  (pageChange)="handlePageChange()"
+  [total]="total"
+></gst-search-results>
+
+<div *ngIf="!loading && gifs && !gifs.length" class="text-center">No GIFs found</div>
